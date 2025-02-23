@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning className="dark">
+      <html lang="en" suppressHydrationWarning className="">
         <body className={`${sans.className} antialiased`}>{children}</body>
       </html>
     </ClerkProvider>
