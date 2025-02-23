@@ -146,7 +146,7 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
         </CardContent>
         <CardFooter>
           <p className="text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
-            Your name, avatar and github username (if logged in through github)
+            Your name, avatar & github username (if logged in through github)
             will be shared publicly viewable by any visitor. Please do not spam
             or post offensive content here.
           </p>

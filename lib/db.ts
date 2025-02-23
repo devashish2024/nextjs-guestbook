@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import type { GuestEntry } from "@prisma/client";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import escapeHtml from "escape-html";
 
 export const fetchEntries = async () => {
   try {
@@ -20,6 +21,9 @@ export const fetchEntries = async () => {
 };
 
 export const createEntry = async (content: string) => {
+  const htmlEncodedContent = escapeHtml(content);
+  const formattedContent = htmlEncodedContent.replace(/\n/g, "<br>");
+
   const user = await currentUser();
 
   if (!user) {
@@ -29,15 +33,17 @@ export const createEntry = async (content: string) => {
   try {
     const entry = await prisma.guestEntry.create({
       data: {
+        email: user?.primaryEmailAddress?.emailAddress || null,
         authorName: user?.fullName || user?.username || "",
         authorAvatar: user?.hasImage ? user?.imageUrl : "",
         githubUsername: user?.username || "",
         isOfficial:
           user?.username === "devashish2024" ||
           user?.username === "vortexprime24",
-        content,
+        content: formattedContent,
       },
     });
+
     revalidatePath("/");
     return entry;
   } catch (error) {

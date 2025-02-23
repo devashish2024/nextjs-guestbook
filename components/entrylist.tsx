@@ -130,7 +130,7 @@ const EntryList: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p>{entry.content}</p>
+            <p dangerouslySetInnerHTML={{ __html: entry.content }} />
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>

@@ -11,6 +11,7 @@ model GuestEntry {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
+  email          String?
   authorName     String
   authorAvatar   String
   githubUsername String?
