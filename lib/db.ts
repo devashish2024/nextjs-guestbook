@@ -20,7 +20,7 @@ export const fetchEntries = async () => {
   }
 };
 
-export const createEntry = async (content: string) => {
+export const createOrUpdateEntry = async (content: string) => {
   const htmlEncodedContent = escapeHtml(content);
   const formattedContent = htmlEncodedContent.replace(/\n/g, "<br>");
 
@@ -31,9 +31,21 @@ export const createEntry = async (content: string) => {
   }
 
   try {
-    const entry = await prisma.guestEntry.create({
-      data: {
-        email: user?.primaryEmailAddress?.emailAddress || null,
+    const entry = await prisma.guestEntry.upsert({
+      where: { email: user?.primaryEmailAddress?.emailAddress || "" },
+      update: {
+        edited: true,
+        authorName: user?.fullName || user?.username || "",
+        authorAvatar: user?.hasImage ? user?.imageUrl : "",
+        githubUsername: user?.username || "",
+        isOfficial:
+          user?.username === "devashish2024" ||
+          user?.username === "vortexprime24",
+        content: formattedContent,
+      },
+      create: {
+        edited: false,
+        email: user?.primaryEmailAddress?.emailAddress || "",
         authorName: user?.fullName || user?.username || "",
         authorAvatar: user?.hasImage ? user?.imageUrl : "",
         githubUsername: user?.username || "",

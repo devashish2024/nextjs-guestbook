@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { createEntry } from "@/lib/db";
+import { createOrUpdateEntry } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -34,7 +34,7 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
 
     setIsSubmitting(true);
     try {
-      await createEntry(content);
+      await createOrUpdateEntry(content);
       setContent("");
       toast("Your message has been added to the guestbook.");
     } catch (error) {
@@ -101,7 +101,7 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
     </div> */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Create Message</CardTitle>
+          <CardTitle className="text-xl">Create or Edit Message</CardTitle>
           <CardDescription>
             Share your thoughts with me and other visitors.
           </CardDescription>
@@ -148,9 +148,10 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
         </CardContent>
         <CardFooter>
           <p className="text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
-            Your name, avatar & github username (if logged in through github)
-            will be shared publicly viewable by any visitor. Please do not spam
-            or post offensive content here.
+            If you already have posted a message, attempting to send another
+            sign here would instead update the previous one and will show
+            'Edited' time on it. Your name, avatar, github profile username
+            (optional) and timestamp will be publicly viewable on the website.
           </p>
         </CardFooter>
       </Card>

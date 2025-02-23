@@ -8,15 +8,16 @@ datasource db {
 }
 
 model GuestEntry {
-  id        String   @id @default(cuid())
+  email     String   @id
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  email          String?
   authorName     String
   authorAvatar   String
   githubUsername String?
   isOfficial     Boolean @default(false)
   content        String
+  edited         Boolean @default(false)
 
   @@index([createdAt(sort: Desc)])
 }

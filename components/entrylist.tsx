@@ -61,8 +61,8 @@ const EntryList: React.FC = () => {
 
   return (
     <div className="space-y-4 mt-8">
-      {entries.map((entry: GuestEntry) => (
-        <Card key={entry.id}>
+      {entries.map((entry: GuestEntry, i) => (
+        <Card key={i}>
           <CardHeader>
             <div className="flex items-center space-x-3">
               <Avatar>
@@ -131,23 +131,53 @@ const EntryList: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p dangerouslySetInnerHTML={{ __html: entry.content }} />
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    {formatDistanceToNow(new Date(entry.createdAt), {
-                      addSuffix: true,
-                    })}
-                  </p>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{format(new Date(entry.createdAt), "PPpp")}</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <div>
+              {entry?.edited && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger className="block">
+                      <p className="text-sm text-muted-foreground mt-2">
+                        Edited{" "}
+                        {formatDistanceToNow(new Date(entry.updatedAt), {
+                          addSuffix: true,
+                        })}
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-center font-semibold">
+                        Last edited at:
+                      </p>
+                      <p className="text-center">
+                        {format(new Date(entry.updatedAt), "PPpp")}
+                      </p>
+                      <p className="text-center text-xs text-muted mt-1">
+                        {Intl.DateTimeFormat().resolvedOptions().timeZone}
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="block">
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {formatDistanceToNow(new Date(entry.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </p>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-center font-semibold">Created at:</p>
+                    <p className="text-center">
+                      {format(new Date(entry.createdAt), "PPpp")}
+                    </p>
+                    <p className="text-center text-xs text-muted mt-1">
+                      {Intl.DateTimeFormat().resolvedOptions().timeZone}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </CardContent>
         </Card>
       ))}
