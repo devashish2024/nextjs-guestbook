@@ -150,8 +150,9 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
           <p className="text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
             If you already have posted a message, attempting to send another
             sign here would instead update the previous one and will show
-            'Edited' time on it. Your name, avatar, github profile username
-            (optional) and timestamp will be publicly viewable on the website.
+            &apos;Edited&apos; time on it. Your name, avatar, github profile
+            username (optional) and timestamp will be publicly viewable on the
+            website.
           </p>
         </CardFooter>
       </Card>
