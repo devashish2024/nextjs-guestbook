@@ -1,7 +1,11 @@
-# Guestbook App with Next.js
+# Re-Usable Guestbook App with Next.js
+
+A simple, plug-and-play guestbook application built with Next.js, integrating shadcn/ui, Clerk, Prisma, and Perspective API. 🔥
 
 This is a simple guestbook application built with Next.js, integrating shadcn/ui, Clerk, Prisma, and Perspective API.
-Check it out live at [nextjs-guestbook-three.vercel.app/](https://nextjs-guestbook-three.vercel.app/)!
+Check it out live at [nextjs-reusable-guestbook.vercel.app](https://nextjs-reusable-guestbook.vercel.app/)!
+
+Feel free to implement the guestbook feature based on this project to your portfolio.
 
 ## Features
 - **Authentication**: Users can sign in using Google or GitHub. The app uses Clerk for authentication, so it can be customized to support more providers.
