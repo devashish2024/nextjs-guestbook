@@ -14,7 +14,7 @@ export default function ThemeToggle() {
   return (
     <div className="flex items-center gap-2">
       <Link
-        href="https://github.com/devashish2024/nextjs-guestbook"
+        href="https://github.com/devashish2024/nextjs-reusable-guestbook"
         target="_blank"
       >
         <Button variant={"default"}>Source Code</Button>

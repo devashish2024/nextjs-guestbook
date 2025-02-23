@@ -59,4 +59,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 For deployment, consider using Vercel, the recommended platform for Next.js applications. Follow the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for detailed instructions.
 
 ## License
-This project is open source and available under the [MIT License](LICENSE). Feel free to copy this to your project, but if possible, thank you for giving credit to the original author by linking back to [this repository](https://github.com/devashish2024/nextjs-guestbook).
+This project is open source and available under the [MIT License](LICENSE). Feel free to copy this to your project, but if possible, thank you for giving credit to the original author by linking back to [this repository](https://github.com/devashish2024/nextjs-reusable-guestbook).
