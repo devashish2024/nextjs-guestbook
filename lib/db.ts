@@ -6,11 +6,45 @@ import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import escapeHtml from "escape-html";
 
+export const isGood = async (text: string): Promise<boolean | null> => {
+  const url = `https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${process.env.PERSPECTIVE_API_KEY}`;
+  const requestBody = {
+    comment: { text: text },
+    languages: ["en"],
+    requestedAttributes: { TOXICITY: {} },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      console.error(
+        `Failed to analyze comment: ${response.status} ${response.statusText}`,
+      );
+      return null;
+    }
+
+    const responseData = await response.json();
+    const summaryScore = responseData.attributeScores.TOXICITY.summaryScore;
+
+    return summaryScore.value <= 0.5;
+  } catch (error) {
+    console.error(`Failed to analyze comment: ${error}`);
+    return null;
+  }
+};
+
 export const fetchEntries = async () => {
   try {
     const entries: GuestEntry[] = await prisma.guestEntry.findMany({
       orderBy: {
-        createdAt: "desc",
+        updatedAt: "desc",
       },
     });
     return entries;
@@ -21,6 +55,11 @@ export const fetchEntries = async () => {
 };
 
 export const createOrUpdateEntry = async (content: string) => {
+  if (content.trim() === "") throw new Error("Entry cannot be empty");
+
+  const isGoodEntry = await isGood(content);
+  if (!isGoodEntry) return "toxic";
+
   const htmlEncodedContent = escapeHtml(content);
   const formattedContent = htmlEncodedContent.replace(/\n/g, "<br>");
 

@@ -34,7 +34,12 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
 
     setIsSubmitting(true);
     try {
-      await createOrUpdateEntry(content);
+      const res = await createOrUpdateEntry(content);
+      if (res && res === "toxic") {
+        toast("Your message contains toxic content. Please try again.");
+        setIsSubmitting(false);
+        return;
+      }
       setContent("");
       toast("Your message has been added to the guestbook.");
     } catch (error) {
