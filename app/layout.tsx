@@ -1,9 +1,7 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -20,14 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-      }}
-    >
-      <html lang="en" suppressHydrationWarning className="dark">
-        <body className={`${sans.className} antialiased`}>{children}</body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${sans.className} antialiased`}>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }

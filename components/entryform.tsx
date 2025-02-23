@@ -18,11 +18,14 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "./ui/textarea";
 import Image from "next/image";
+import { dark } from "@clerk/themes";
+import { useTheme } from "next-themes";
 
 const EntryForm = ({ refresh }: { refresh: () => void }) => {
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { isSignedIn, user, isLoaded } = useUser();
+  const { resolvedTheme } = useTheme();
 
   const handleSign = async (e: any = null) => {
     if (e) e.preventDefault();
@@ -66,7 +69,12 @@ const EntryForm = ({ refresh }: { refresh: () => void }) => {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex space-x-4">
-            <SignInButton mode="modal">
+            <SignInButton
+              mode="modal"
+              appearance={{
+                baseTheme: resolvedTheme === "dark" ? dark : undefined,
+              }}
+            >
               <Button variant="outline">Sign in</Button>
             </SignInButton>
           </CardContent>

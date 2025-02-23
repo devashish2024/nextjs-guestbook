@@ -7,6 +7,7 @@ Check it out live at [nextjs-guestbook-three.vercel.app/](https://nextjs-guestbo
 - **Authentication**: Users can sign in using Google or GitHub. The app uses Clerk for authentication, so it can be customized to support more providers.
 - **Guestbook Entries**: Users can submit guestbook entries with their name and message. They can also update their entries later, anytime.
 - **Limit**: The app limits one user to only send one entry to ensure that the guestbook is not spammed.
+- **Theme**: Uses `Next Themes` to provide a light and dark theme. Everything, including Clerk popups, changes based on the theme. No flashes!
 - **Social**: Those who login with their GitHub account will also share their github username automatically, allowing people to see their GitHub profile.
 - **Perspective API**: The app uses the Perspective API to analyze the sentiment of guestbook messages and filter out toxic content.
 
